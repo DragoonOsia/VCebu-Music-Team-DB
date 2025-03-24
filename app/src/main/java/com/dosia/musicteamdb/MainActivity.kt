@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: SongAdapter
     private lateinit var songsRecyclerView: RecyclerView
     private lateinit var singerSpinner: Spinner
-    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         db.collection("Singers")
             .document(singerName)
             .collection("Songs")
+            .orderBy("Song", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
                 Log.d("FIREBASE_DATA", "Raw documents: ${result.documents}")
